@@ -17,8 +17,8 @@ router.post('/', async (req, res) => {
       
     
   // TODO: save city to search history
- await HistoryService.addCity(req.body.city);
-    } else {
+      await HistoryService.addCity(req.body.city);
+      } else {
       res.status(404).json({ message: 'City not found' });
       }
     } catch (error) {
