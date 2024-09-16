@@ -1,4 +1,4 @@
-import e, { Router } from 'express';
+import  { Router } from 'express';
 const router = Router();
 import HistoryService from '../../service/historyService.js';
 import WeatherService from '../../service/weatherService.js';
@@ -31,9 +31,23 @@ router.post('/', async (req, res) => {
   });
 
 // TODO: GET search history
-router.get('/history', async (req, res) => {});
+router.get('/history', async (_req, res) => {
+  try {
+    const savedCities = await HistoryService.getCities();
+    res.json(savedCities);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching search history' });
+  }
+});
 
 // * BONUS TODO: DELETE city from search history
-router.delete('/history/:id', async (req, res) => {});
+router.delete('/history/:id', async (req, res) => {
+  try {
+    await HistoryService.removeCity(req.params.id);
+    res.status(204).end();
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting city from search history' });
+  }
+});
 
 export default router;
