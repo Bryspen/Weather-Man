@@ -12,6 +12,7 @@ router.post('/', async (req, res) => {
     try {
       const weatherData = await WeatherService.getWeatherForCity(cityName);
       res.json(weatherData);
+      console.log(weatherData);
       if (weatherData) {
         res.json(weatherData);
       
@@ -23,6 +24,7 @@ router.post('/', async (req, res) => {
       }
     } catch (error) {
       res.status(500).json({ message: 'Error fetching weather data' });
+      console.log(cityName);
     }
   }
     else {
